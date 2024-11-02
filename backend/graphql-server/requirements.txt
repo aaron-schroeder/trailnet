@@ -1,0 +1,5 @@
+Django==4.2.6
+graphene-django==3.2.2
+# django-environ
+# psycopg2-binary
+# djangorestframework

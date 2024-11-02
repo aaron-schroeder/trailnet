@@ -1,0 +1,43 @@
+# ---
+# python stuff
+
+env/
+*.pyc
+
+# ---
+
+# ---
+# From vite
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# ---
+
+# Temp, remove before adding this file
+backend/graphql-server-example/
+backend/neo4j/
+backend/postgis/
+frontend/react-app-example/
