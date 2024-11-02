@@ -36,8 +36,8 @@ dist-ssr
 
 # ---
 
-# Temp, remove before adding this file
-backend/graphql-server-example/
-backend/neo4j/
-backend/postgis/
-frontend/react-app-example/
+# ---
+# Django
+*.sqlite3
+
+# ---

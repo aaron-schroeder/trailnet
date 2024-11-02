@@ -82,6 +82,12 @@ DATABASES = {
     }
 }
 
+# Neo4j configuration
+import os
+from neomodel import config
+config.DATABASE_URL = os.getenv('DATABASE_URL', 
+                                'bolt://neo4j:password@localhost:7687')  
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
