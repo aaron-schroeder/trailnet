@@ -10,7 +10,7 @@ WORKDIR /app
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
-    build-essential \
+    build-essential binutils libproj-dev gdal-bin \
     && apt-get clean
 
 # Copy the requirements file into the container

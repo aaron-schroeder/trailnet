@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -39,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'graphql_app',
     'graphene_django',
+    'django.contrib.gis',
+    'postgis_app',
 ]
 
 MIDDLEWARE = [
@@ -79,11 +82,20 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    },
+    'geospatial': {
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': os.getenv('POSTGRES_DB', 'geospatial_db'),
+        'USER': os.getenv('POSTGRES_USER', 'username'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'password'),
+        'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
+        'PORT': '5432',
     }
 }
 
+DATABASE_ROUTERS = ['django_project.db_router.DatabaseRouter']
+
 # Neo4j configuration
-import os
 from neomodel import config
 config.DATABASE_URL = os.getenv('DATABASE_URL', 
                                 'bolt://neo4j:password@localhost:7687')  
