@@ -1,9 +1,9 @@
 services:
   django:
     build:
-      context: ./backend/graphql-server
+      context: ./django
     volumes:
-      - ./backend/graphql-server:/app
+      - ./django:/app
     environment:
       - DATABASE_URL=bolt://neo4j:password@neo4j:7687
       - POSTGRES_DB=${POSTGRES_DB}
@@ -18,7 +18,7 @@ services:
 
   react-app-dev:
     build:
-      context: ./frontend/react-app
+      context: ./react-app
     command: npm run dev
     ports:
       - "5173:5173"  # Expose React dev server (Vite) on port 3000
@@ -27,11 +27,11 @@ services:
     depends_on:
       - django  # Optional: If your React app depends on the backend being available
     volumes:
-      - ./frontend/react-app:/app  # Optional: If you want to live-edit the app
+      - ./react-app:/app  # Optional: If you want to live-edit the app
 
   react-app-prod:
     build:
-      context: ./frontend/react-app
+      context: ./react-app
       dockerfile: Dockerfile.prod
     ports:
       - "3000:80"  # Map port 80 in the container to port 3000 on the host
@@ -40,7 +40,7 @@ services:
     depends_on:
       - django  # Optional: If your React app depends on the backend being available
     volumes:
-      - ./frontend/react-app:/app  # Optional: If you want to live-edit the app
+      - ./react-app:/app  # Optional: If you want to live-edit the app
     profiles:
       - production  # This service will only run when 'production' profile is used
 
