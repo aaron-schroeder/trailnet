@@ -1,7 +1,8 @@
-from rest_framework import serializers
+from rest_framework_gis.serializers import GeoFeatureModelSerializer
 from .models import TrailSegment
 
-class TrailSegmentSerializer(serializers.ModelSerializer):
+class TrailSegmentSerializer(GeoFeatureModelSerializer):
     class Meta:
         model = TrailSegment
-        fields = '__all__'
+        fields = ('id', 'name', 'geometry')  # Specify fields explicitly
+        geo_field = 'geometry'  # This field will be serialized as GeoJSON

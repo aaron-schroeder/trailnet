@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'postgis_app',
     'rest_framework',
     'corsheaders',
+    'rest_framework_gis',
 ]
 
 MIDDLEWARE = [
