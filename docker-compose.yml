@@ -26,8 +26,9 @@ services:
       - VITE_REACT_APP_BACKEND_URL=http://localhost:8000/postgis/
     depends_on:
       - django
-    volumes:
-      - ./react-app:/app  # live edit
+    volumes: # live edit
+      - ./react-app:/app
+      - /app/node_modules
 
   react-app-prod:
     build:
@@ -53,7 +54,8 @@ services:
       - "7687:7687"
 
   postgis:
-    image: postgis/postgis:15-3.4
+    image: ghcr.io/baosystems/postgis:15-3.4
+    platform: linux/arm64
     container_name: postgis_container
     ports:
       - "5432:5432"
