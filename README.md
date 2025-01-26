@@ -1,27 +1,27 @@
 ```
-docker-compose build
+docker compose build
 ```
 
 ```
-docker-compose run
+docker compose run
 ```
 
 ```
-docker-compose exec django python manage.py makemigrations
+docker compose exec django python manage.py makemigrations
 ```
 
 ```
-docker-compose exec django python manage.py migrate
+docker compose exec django python manage.py migrate
 ```
 
 ```
-docker-compose exec django python manage.py migrate --database=geospatial
+docker compose exec django python manage.py migrate --database=geospatial
 ```
 
 ---
 
 ```
-docker-compose exec django python manage.py shell
+docker compose exec django python manage.py shell
 ```
 
 ```
