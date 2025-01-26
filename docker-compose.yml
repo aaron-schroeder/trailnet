@@ -21,39 +21,41 @@ services:
       context: ./react-app
     command: npm run dev
     ports:
-      - "5173:5173"  # Expose React dev server (Vite) on port 3000
+      - "5173:5173"
     environment:  
       - VITE_REACT_APP_BACKEND_URL=http://localhost:8000/postgis/
     depends_on:
-      - django  # Optional: If your React app depends on the backend being available
-    volumes:
-      - ./react-app:/app  # Optional: If you want to live-edit the app
+      - django
+    volumes: # live edit
+      - ./react-app:/app
+      - /app/node_modules
 
   react-app-prod:
     build:
       context: ./react-app
       dockerfile: Dockerfile.prod
     ports:
-      - "3000:80"  # Map port 80 in the container to port 3000 on the host
+      - "3000:80"
     environment:  
       - VITE_REACT_APP_BACKEND_URL=http://django:8000
     depends_on:
-      - django  # Optional: If your React app depends on the backend being available
+      - django
     volumes:
-      - ./react-app:/app  # Optional: If you want to live-edit the app
+      - ./react-app:/app
     profiles:
-      - production  # This service will only run when 'production' profile is used
+      - production
 
   neo4j:
     image: neo4j:latest
     environment:
       - NEO4J_AUTH=neo4j/password
     ports:
-      - "7474:7474"  # Neo4j Browser
-      - "7687:7687"  # Bolt protocol
+      - "7474:7474"
+      - "7687:7687"
 
   postgis:
-    image: postgis/postgis:15-3.4
+    image: ghcr.io/baosystems/postgis:15-3.4
+    platform: linux/arm64
     container_name: postgis_container
     ports:
       - "5432:5432"

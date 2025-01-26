@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Polyline } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
-import { getTrailSegments } from '../services/api';
+import { getTrailSegments, getRoutes } from '../services/api';
 
 const Map = () => {
     const [segments, setSegments] = useState(null);
@@ -47,6 +47,15 @@ const Map = () => {
         fetchSegments();
     }, []);
 
+    const [routes, setRoutes] = useState(null);
+    useEffect(() => {
+        const fetchRoutes = async () => {
+            const data = await getRoutes();
+            setRoutes(data);
+        };
+        fetchRoutes();
+    }, []);
+
     return (
         <div id='container'>
         <MapContainer center={[32.233, -110.852]} zoom={16} >
@@ -54,13 +63,23 @@ const Map = () => {
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            {
-                segments !== null && 
+            {segments !== null && 
                 segments.features.map(segment => (
                     <Polyline
-                        key={segment.id}
-                        positions={segment.geometry.coordinates.map(coord => [coord[1], coord[0]])} // Leaflet expects [lat, lng]
+                        key={`segment-${segment.id}`}
+                        positions={segment.geometry.coordinates.map(coord => [coord[1], coord[0]])}
                         color="blue"
+                    />
+                ))
+            }
+            {routes !== null &&
+                routes.features.map(route => (
+                    <Polyline
+                        key={`route-${route.id}`}
+                        positions={route.geometry.coordinates.map(line =>
+                            line.map(coord => [coord[1], coord[0]])
+                        )}
+                        color="red"
                     />
                 ))
             }
