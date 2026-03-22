@@ -1,4 +1,5 @@
 from django.contrib.gis.db import models
+from django.db import models as base_models
 
 
 class TrailSegment(models.Model):
@@ -24,3 +25,14 @@ class Route(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Direction(base_models.TextChoices):
+    FORWARD = 'F', 'Forward'
+    REVERSE = 'R', 'Reverse'
+
+
+class RouteRun(models.Model):
+    route = models.ForeignKey(Route, on_delete=models.CASCADE, related_name='runs')
+    started_at = models.DateTimeField()
+    direction = models.CharField(max_length=1, choices=Direction.choices)
