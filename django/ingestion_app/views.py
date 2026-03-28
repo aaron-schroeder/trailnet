@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.gis.geos import LineString, Point
 from django.utils.dateparse import parse_datetime
 from django.db import transaction
-from .models import Activity, ActivityPoint
+from .models import Activity
 
 
 def require_token(fn):
@@ -66,13 +66,13 @@ class IngestActivitiesView(View):
             raw=raw,
         )
 
-        ActivityPoint.objects.bulk_create([
-            ActivityPoint(
-                activity=activity,
-                sequence=i,
-                timestamp=parse_datetime(c[3]),
-                location=Point(c[0], c[1]),
-                elevation=c[2] if c[2] is not None else None,
-            )
-            for i, c in enumerate(coords)
-        ])
+        # ActivityPoint.objects.bulk_create([
+        #     ActivityPoint(
+        #         activity=activity,
+        #         sequence=i,
+        #         timestamp=parse_datetime(c[3]),
+        #         location=Point(c[0], c[1]),
+        #         elevation=c[2] if c[2] is not None else None,
+        #     )
+        #     for i, c in enumerate(coords)
+        # ])

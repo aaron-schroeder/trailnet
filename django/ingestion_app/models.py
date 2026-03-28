@@ -17,22 +17,22 @@ class Activity(models.Model):
         return f"{self.source}:{self.external_id} @ {self.started_at}"
 
 
-class ActivityPoint(models.Model):
-    activity = base_models.ForeignKey(
-        Activity,
-        on_delete=base_models.CASCADE,
-        related_name='points'
-    )
-    sequence = base_models.PositiveIntegerField()
-    timestamp = base_models.DateTimeField()
-    location = models.PointField()               # lon, lat
-    elevation = base_models.FloatField(null=True)
+# class ActivityPoint(models.Model):
+#     activity = base_models.ForeignKey(
+#         Activity,
+#         on_delete=base_models.CASCADE,
+#         related_name='points'
+#     )
+#     sequence = base_models.PositiveIntegerField()
+#     timestamp = base_models.DateTimeField()
+#     location = models.PointField()               # lon, lat
+#     elevation = base_models.FloatField(null=True)
 
-    class Meta:
-        ordering = ['sequence']
-        indexes = [
-            base_models.Index(fields=['activity', 'sequence']),
-        ]
+#     class Meta:
+#         ordering = ['sequence']
+#         indexes = [
+#             base_models.Index(fields=['activity', 'sequence']),
+#         ]
 
-    def __str__(self):
-        return f"{self.activity.external_id}[{self.sequence}] @ {self.timestamp}"
+#     def __str__(self):
+#         return f"{self.activity.external_id}[{self.sequence}] @ {self.timestamp}"
