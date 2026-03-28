@@ -45,7 +45,10 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'rest_framework_gis',
+    'ingestion_app',
 ]
+
+INGESTION_API_TOKEN = os.getenv('INGESTION_API_TOKEN')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -89,10 +92,6 @@ WSGI_APPLICATION = 'django_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
-    'geospatial': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': os.getenv('POSTGRES_DB', 'geospatial_db'),
         'USER': os.getenv('POSTGRES_USER', 'username'),
@@ -101,8 +100,6 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
-DATABASE_ROUTERS = ['django_project.db_router.DatabaseRouter']
 
 # Neo4j configuration
 from neomodel import config

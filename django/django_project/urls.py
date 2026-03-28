@@ -21,4 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('graphql/', include('graphql_app.urls')),
     path('postgis/', include('postgis_app.urls')),
+    path('api/ingest/', include('ingestion_app.urls')),
 ]
+
