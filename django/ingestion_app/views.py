@@ -54,9 +54,10 @@ class IngestActivitiesView(View):
         if Activity.objects.filter(source=raw['source'], external_id=raw['external_id']).exists():
             raise Activity.AlreadyExists()
 
-        coords = raw['coordinates']  # each: [lon, lat, elevation_or_null, iso_timestamp]
+        # coords = raw['coordinates']  # each: [lon, lat, elevation_or_null, iso_timestamp]
+        coords = raw['coordinates']  # each: {iso_timestamp: [lon, lat, elevation_or_null]}
 
-        geometry = LineString([(c[0], c[1]) for c in coords])
+        geometry = LineString([(c['lon'], c['lat']) for c in coords.values()])
 
         activity = Activity.objects.create(
             source=raw['source'],
