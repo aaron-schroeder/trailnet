@@ -51,6 +51,8 @@ class IngestActivitiesView(View):
 
     @transaction.atomic
     def _ingest_one(self, raw):
+        # Could also catch a django.db.IntegrityError which would arise if we tried to create
+        # an Activity with a duplicate `external_id`
         if Activity.objects.filter(source=raw['source'], external_id=raw['external_id']).exists():
             raise Activity.AlreadyExists()
 

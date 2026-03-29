@@ -16,6 +16,8 @@ class Activity(models.Model):
     def __str__(self):
         return f"{self.source}:{self.external_id} @ {self.started_at}"
 
+    class AlreadyExists(Exception):
+        pass
 
 # class ActivityPoint(models.Model):
 #     activity = base_models.ForeignKey(
