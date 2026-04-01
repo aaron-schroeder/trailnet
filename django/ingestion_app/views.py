@@ -69,13 +69,16 @@ class IngestActivitiesView(View):
             raw=raw,
         )
 
+        # BAD IDEA to keep so many datapoints as Django ORM objects.
+        # Prohibitively slow.
+        # Re-evaluating intent currently.
         # ActivityPoint.objects.bulk_create([
         #     ActivityPoint(
         #         activity=activity,
         #         sequence=i,
-        #         timestamp=parse_datetime(c[3]),
-        #         location=Point(c[0], c[1]),
-        #         elevation=c[2] if c[2] is not None else None,
+        #         timestamp=parse_datetime(ts),
+        #         location=Point(c['lon'], c['lat']),
+        #         elevation=c.get('elevation'),
         #     )
-        #     for i, c in enumerate(coords)
+        #     for i, (ts, c) in enumerate(coords.items())
         # ])

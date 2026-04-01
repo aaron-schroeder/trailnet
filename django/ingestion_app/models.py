@@ -14,11 +14,15 @@ class Activity(models.Model):
         verbose_name_plural = 'activities'
 
     def __str__(self):
-        return f"{self.source}:{self.external_id} @ {self.started_at}"
+        return f"{self.source}: {self.external_id} @ {self.started_at}"
 
     class AlreadyExists(Exception):
         pass
 
+
+# BAD IDEA to keep so many datapoints as Django ORM objects.
+# Prohibitively slow.
+# Re-evaluating intent currently.
 # class ActivityPoint(models.Model):
 #     activity = base_models.ForeignKey(
 #         Activity,
@@ -27,11 +31,11 @@ class Activity(models.Model):
 #     )
 #     sequence = base_models.PositiveIntegerField()
 #     timestamp = base_models.DateTimeField()
-#     location = models.PointField()               # lon, lat
+#     location = models.PointField()
 #     elevation = base_models.FloatField(null=True)
 
 #     class Meta:
-#         ordering = ['sequence']
+#         ordering = ['activity', 'sequence']
 #         indexes = [
 #             base_models.Index(fields=['activity', 'sequence']),
 #         ]
