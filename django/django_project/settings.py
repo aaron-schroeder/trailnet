@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_gis',
     'ingestion_app',
+    'core',
 ]
 
 INGESTION_API_TOKEN = os.getenv('INGESTION_API_TOKEN')
