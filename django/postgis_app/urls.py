@@ -1,11 +1,9 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import TrailSegmentViewSet, TrailViewSet, RouteViewSet
+from .views import LineViewSet
 
 router = DefaultRouter()
-router.register(r'trail-segments', TrailSegmentViewSet)
-router.register(r'trails', TrailViewSet)
-router.register(r'routes', RouteViewSet)
+router.register(r'lines', LineViewSet)
 
 
 urlpatterns = [

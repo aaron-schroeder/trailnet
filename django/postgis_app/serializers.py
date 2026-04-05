@@ -1,23 +1,9 @@
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
-from .models import TrailSegment, Trail, Route
+from .models import Line
 
 
-class TrailSegmentSerializer(GeoFeatureModelSerializer):
+class LineSerializer(GeoFeatureModelSerializer):
     class Meta:
-        model = TrailSegment
+        model = Line
         fields = ('id', 'name', 'geometry')
-        geo_field = 'geometry'
-
-
-class TrailSerializer(GeoFeatureModelSerializer):
-    class Meta:
-        model = Trail
-        fields = ('id', 'name', 'geometry')  
-        geo_field = 'geometry'
-
-
-class RouteSerializer(GeoFeatureModelSerializer):
-    class Meta:
-        model = Route
-        fields = ('id', 'name', 'geometry')  
         geo_field = 'geometry'
