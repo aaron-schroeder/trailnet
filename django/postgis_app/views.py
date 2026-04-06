@@ -39,6 +39,7 @@ def graph_json(request):
             'unique_id': segment.unique_id,
             'line_id': segment.line_id,
             'name': segment.name,
+            'distance_meters': segment.distance_meters,
             'start_junction': start_junction.unique_id if start_junction else None,
             'end_junction': end_junction.unique_id if end_junction else None,
             'start_coord': {'lon': start_coord[0], 'lat': start_coord[1]},

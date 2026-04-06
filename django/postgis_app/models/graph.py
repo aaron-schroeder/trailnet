@@ -2,6 +2,7 @@ from neomodel import (
     StructuredNode,
     StringProperty,
     IntegerProperty,
+    FloatProperty,
     RelationshipTo,
     RelationshipFrom,
     StructuredRel,
@@ -20,8 +21,10 @@ class SegmentEndRel(StructuredRel):
 
 class Segment(StructuredNode):
     unique_id = StringProperty(unique_index=True, required=True)
-    name = StringProperty()
     line_id = IntegerProperty()  # FK into PostGIS Line.pk
+    name = StringProperty()
+    distance_meters = FloatProperty()
+
 
     start_junction = RelationshipTo(Junction, 'STARTS_AT', model=SegmentEndRel)
     end_junction = RelationshipTo(Junction, 'ENDS_AT', model=SegmentEndRel)

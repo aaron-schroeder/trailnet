@@ -75,7 +75,10 @@ const GraphMap = () => {
                                 click: () => toggleSegment(seg.unique_id)
                             }}
                         >
-                            <Tooltip sticky>{seg.unique_id} ({seg.name})</Tooltip>
+                            <Tooltip sticky>
+                                {seg.unique_id} ({seg.name})
+                                <br />distance = {seg.distance_meters} meters
+                            </Tooltip>
                         </Polyline>
 
                         <CircleMarker
