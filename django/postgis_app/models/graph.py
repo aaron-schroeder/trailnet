@@ -25,7 +25,6 @@ class Segment(StructuredNode):
     name = StringProperty()
     distance_meters = FloatProperty()
 
-
     start_junction = RelationshipTo(Junction, 'STARTS_AT', model=SegmentEndRel)
     end_junction = RelationshipTo(Junction, 'ENDS_AT', model=SegmentEndRel)
 
@@ -38,11 +37,18 @@ class RouteSegmentRel(StructuredRel):
     direction = StringProperty(required=True)  # 'F' or 'R'
 
 
+class RouteStep(StructuredNode):
+    order = IntegerProperty(required=True)
+    direction = StringProperty(required=True)  # 'F' or 'R'
+    segment = RelationshipTo(Segment, 'USES')
+
+
 class Route(StructuredNode):
     unique_id = StringProperty(unique_index=True, required=True)
     name = StringProperty()
 
     segments = RelationshipTo(Segment, 'INCLUDES', model=RouteSegmentRel)
+    steps = RelationshipTo(RouteStep, 'HAS_STEP')
 
     def __str__(self):
         return self.name
