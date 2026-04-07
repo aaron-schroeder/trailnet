@@ -54,16 +54,7 @@ def build_route(route_id: str, name: str, segment_sequence: list[Segment], first
             'direction': direction
         })
 
-        # v1: Connect the Segment to the Route
-        route.segments.connect(
-            segment,
-            {
-                'order': order,
-                'direction': direction
-            }
-        )
-
-        # v2: Create and connect the RouteStep node
+        # Create and connect the RouteStep node
         step = RouteStep(
             order=order,
             direction=direction

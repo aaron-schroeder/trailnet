@@ -32,11 +32,6 @@ class Segment(StructuredNode):
         return self.name
 
 
-class RouteSegmentRel(StructuredRel):
-    order = IntegerProperty(required=True)
-    direction = StringProperty(required=True)  # 'F' or 'R'
-
-
 class RouteStep(StructuredNode):
     order = IntegerProperty(required=True)
     direction = StringProperty(required=True)  # 'F' or 'R'
@@ -47,7 +42,6 @@ class Route(StructuredNode):
     unique_id = StringProperty(unique_index=True, required=True)
     name = StringProperty()
 
-    segments = RelationshipTo(Segment, 'INCLUDES', model=RouteSegmentRel)
     steps = RelationshipTo(RouteStep, 'HAS_STEP')
 
     def __str__(self):
