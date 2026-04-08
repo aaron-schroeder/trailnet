@@ -8,9 +8,11 @@
       by processing the collection of `Line` objects (presumed to look like a trail network)
       ([see howto](#process-collection-of-line-objects-into-a-graph-of-the-trail-network))
     - Create a manual `Route` graph object by running the `build_route` management command.
+    - Add `distance_meters` property to segments by running the `add_distance_to_segments`
+      management command
     - To ingest `Activity` objects into the PostGIS db, hit the POST endpoint
       (using another service) ([see howto](#ingest-activity-objects))
-3. And then check on the objects you've created
+3. Check on the objects you've created
     - Check on your newly-created objects in Django admin ([see howto](#view-objects-in-django-admin))
     - See `Line` objects OR a combined map representing `Line`, `Segment`, and `Junction` data
       (depending on how the code is configured currently) on the React frontend app 
@@ -18,6 +20,11 @@
     - Print data about the manually-created `Route` by running the 
       `print_route_info` management command.
     - You can also look at the neo4j graph directly ([see howto](#see-objects-in-the-graph-database))
+4. Play with the data
+    - Run the `calculate_shortest_path` management command. Pre-reqs:
+        - a built-up trail network consisting of a graph of `Junction` and `Segment` objects
+          backed by PostGIS `Line` objects
+        - A `distance_meters` property on all `Segment` objects (run `add_distance_to_segments`)
 
 
 ## howto
@@ -129,4 +136,17 @@ First, follow the instructions to [enter the Django shell](#enter-the-django-she
 From the terminal while the containers are running:
 ```
 docker compose exec django python manage.py shell
+```
+
+## scratch notes
+```sh
+docker compose exec django python manage.py calculate_shortest_path --rebuild --start-id junction_197 --end-id junction_209
+Clearing existing TRAVELS_TO rels...
+Creating new TRAVELS_TO rels...
+TRAVELS_TO relationships created
+Projecting in-memory graph...
+Calculating shortest path...
+Total distance: 4964 meters
+Path: junction_197 -> junction_199 -> junction_29 -> junction_148 -> junction_139 -> junction_164 -> junction_147 -> junction_168 -> junction_209
+Dropping in-memory graph projection...
 ```
