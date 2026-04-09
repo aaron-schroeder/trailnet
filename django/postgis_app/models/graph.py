@@ -46,6 +46,14 @@ class Route(StructuredNode):
 
     def __str__(self):
         return self.name
+    
+    def distance_meters(self) -> float:
+        results, _ = self.cypher("""
+            MATCH (route)-[:HAS_STEP]->(step)-[:USES]->(segment)
+            WHERE elementId(route) = $self
+            RETURN sum(segment.distance_meters) AS total
+        """)
+        return results[0][0] or 0.0
 
 
 # BELOW THIS POINT - STUFF TO ADD LATER

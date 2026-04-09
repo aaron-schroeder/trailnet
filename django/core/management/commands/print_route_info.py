@@ -7,6 +7,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         route = Route.nodes.get(unique_id='route_1')
 
+        print(f'Total distance: {route.distance_meters()} meters')
+
         ordered = sorted(
             route.steps.all(),
             key=lambda rs: rs.order
